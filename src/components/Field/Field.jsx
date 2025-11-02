@@ -1,4 +1,3 @@
-import styles from "./field.module.css";
 import { Component } from "react";
 import { connect } from "react-redux";
 
@@ -9,11 +8,11 @@ export class OldFieldContainer extends Component {
 
   render() {
     return (
-      <div className={styles.fieldContainer}>
+      <div className="grid grid-cols-3 grid-rows-3 gap-0.5">
         {this.props.field.map((fi, index) => (
           <div
             id={`cell-${index}`}
-            className={`${styles.cellField} cell`}
+            className="border-1 w-20 h-20 border-green-600 text-center content-center text-red-300 text-2xl"
             key={index}
             onClick={() => this.props.clickCell(index)}
           >

@@ -1,7 +1,6 @@
 import { OldField } from "./components/Field/Field.jsx";
 import { OldInformation } from "./components/Information/Information.jsx";
 import { OldButton } from "./components/Button/Button.jsx";
-import "./App.css";
 import { connect } from "react-redux";
 
 import {

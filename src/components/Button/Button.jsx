@@ -1,4 +1,3 @@
-import styles from "./button.module.css";
 import { Component } from "react";
 import { RESTART_GAME } from "../../actions";
 import { connect } from "react-redux";
@@ -12,7 +11,7 @@ export class OldButtonContainer extends Component {
     return (
       <button
         id="back-button"
-        className={styles.button}
+        className="button-back focus:border-green-600 border-2 hover:bg-green-700 "
         onClick={this.props.handleClick}
       >
         Начать заново

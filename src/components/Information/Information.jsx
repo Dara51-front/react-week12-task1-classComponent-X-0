@@ -1,4 +1,3 @@
-import styles from "./information.module.css";
 import { connect } from "react-redux";
 import { Component } from "react";
 
@@ -24,7 +23,7 @@ export class OldInformationContainer extends Component {
   render() {
     return (
       <>
-        <p className={styles.information}>{this.announceWinner()}</p>
+        <p className="text-red-300 text-2xl pb-4">{this.announceWinner()}</p>
       </>
     );
   }
