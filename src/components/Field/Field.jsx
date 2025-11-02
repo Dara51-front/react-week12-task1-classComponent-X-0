@@ -1,21 +1,32 @@
-import { useSelector } from "react-redux";
 import styles from "./field.module.css";
-import { selectField } from "../../selectors";
+import { Component } from "react";
+import { connect } from "react-redux";
 
-export default function Field({ clickCell }) {
-  const field = useSelector(selectField);
+export class OldFieldContainer extends Component {
+  constructor(props) {
+    super(props);
+  }
 
-  return (
-    <div className={styles.fieldContainer}>
-      {field.map((fi, index) => (
-        <div
-          className={styles.cellField}
-          key={index}
-          onClick={() => clickCell(index)}
-        >
-          {fi}
-        </div>
-      ))}
-    </div>
-  );
+  render() {
+    return (
+      <div className={styles.fieldContainer}>
+        {this.props.field.map((fi, index) => (
+          <div
+            id={`cell-${index}`}
+            className={`${styles.cellField} cell`}
+            key={index}
+            onClick={() => this.props.clickCell(index)}
+          >
+            {fi}
+          </div>
+        ))}
+      </div>
+    );
+  }
 }
+
+const mapStateToProps = (state) => ({
+  field: state.field,
+});
+
+export const OldField = connect(mapStateToProps)(OldFieldContainer);

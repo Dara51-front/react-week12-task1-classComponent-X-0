@@ -1,30 +1,39 @@
 import styles from "./information.module.css";
-import { useSelector } from "react-redux";
+import { connect } from "react-redux";
+import { Component } from "react";
 
-import {
-  selectCurrentPlayer,
-  selectIsDraw,
-  selectIsGameEnded,
-} from "../../selectors";
+export class OldInformationContainer extends Component {
+  constructor(props) {
+    super(props);
+    this.announceWinner = this.announceWinner.bind(this);
+  }
 
-export default function Information() {
-  const currentPlayer = useSelector(selectCurrentPlayer);
-  const isGameEnded = useSelector(selectIsGameEnded);
-  const isDraw = useSelector(selectIsDraw);
-
-  const announceWinner = () => {
-    if (isDraw === true && isGameEnded === true) {
+  announceWinner() {
+    if (this.props.isDraw === true && this.props.isGameEnded === true) {
       return "Ничья";
-    } else if (isDraw === false && isGameEnded === true) {
-      return `Победа: ${currentPlayer}`;
-    } else if (isDraw === false && isGameEnded === false) {
-      return `Ходит: ${currentPlayer}`;
+    } else if (this.props.isDraw === false && this.props.isGameEnded === true) {
+      return `Победа: ${this.props.currentPlayer}`;
+    } else if (
+      this.props.isDraw === false &&
+      this.props.isGameEnded === false
+    ) {
+      return `Ходит: ${this.props.currentPlayer}`;
     } else return null;
-  };
+  }
 
-  return (
-    <>
-      <p className={styles.information}>{announceWinner()}</p>
-    </>
-  );
+  render() {
+    return (
+      <>
+        <p className={styles.information}>{this.announceWinner()}</p>
+      </>
+    );
+  }
 }
+
+const mapStateToProps = (state) => ({
+  isDraw: state.isDraw,
+  currentPlayer: state.currentPlayer,
+  isGameEnded: state.isGameEnded,
+});
+
+export const OldInformation = connect(mapStateToProps)(OldInformationContainer);

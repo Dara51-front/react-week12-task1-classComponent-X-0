@@ -1,27 +1,17 @@
-import Field from "./components/Field/Field.jsx";
-import Information from "./components/Information/Information.jsx";
-import Button from "./components/Button/Button.jsx";
+import { OldField } from "./components/Field/Field.jsx";
+import { OldInformation } from "./components/Information/Information.jsx";
+import { OldButton } from "./components/Button/Button.jsx";
 import "./App.css";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  selectCurrentPlayer,
-  selectField,
-  selectIsGameEnded,
-} from "./selectors";
+import { connect } from "react-redux";
+
 import {
   SET_CURRENT_PLAYER,
   SET_FIELD,
   IS_DRAW,
   IS_GAME_END,
-  RESTART_GAME,
 } from "./actions.js";
 
-export default function App() {
-  const currentPlayer = useSelector(selectCurrentPlayer);
-  const isGameEnded = useSelector(selectIsGameEnded);
-  const field = useSelector(selectField);
-  const dispatch = useDispatch();
-
+export function AppContainer({ dispatch, currentPlayer, isGameEnded, field }) {
   const WIN_PATTERNS = [
     [0, 1, 2],
     [3, 4, 5],
@@ -32,10 +22,6 @@ export default function App() {
     [0, 4, 8],
     [2, 4, 6], // Варианты побед по диагонали
   ];
-
-  const handleClick = () => {
-    dispatch(RESTART_GAME);
-  };
 
   const checkWin = (field) => {
     for (let i = 0; i < WIN_PATTERNS.length; i++) {
@@ -72,9 +58,17 @@ export default function App() {
 
   return (
     <>
-      <Information />
-      <Field clickCell={clickCell} />
-      <Button handleClick={handleClick} />
+      <OldInformation />
+      <OldField clickCell={clickCell} />
+      <OldButton />
     </>
   );
 }
+
+const mapStateToProps = (state) => ({
+  currentPlayer: state.currentPlayer,
+  isGameEnded: state.isGameEnded,
+  field: state.field,
+});
+
+export const App = connect(mapStateToProps)(AppContainer);
