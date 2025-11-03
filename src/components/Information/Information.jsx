@@ -20,6 +20,10 @@ export class OldInformationContainer extends Component {
     } else return null;
   }
 
+  componentDidUpdate(prevProps) {
+    console.log("Information updated:", prevProps, this.props);
+  }
+
   render() {
     return (
       <>
